@@ -12,7 +12,8 @@ def home():
     return render_template("index.html")
 
 if __name__ == "__main__":
-    # Используем порт из переменной окружения PORT, если она есть, иначе 5000
+    # Use port from 
+    # Используем порт из environmental variable PORT, if it is, else 5000
     port = int(os.environ.get("PORT", 5002))
     app.run(host="0.0.0.0", port=port)
 
