@@ -8,3 +8,4 @@ __pycache__/
 
 # Папки для настроек IDE (например, VSCode)
 .vscode/
+.vercel
