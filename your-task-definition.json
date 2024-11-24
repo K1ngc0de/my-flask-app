@@ -1,0 +1,19 @@
+{
+    "family": "simple-app",
+    "containerDefinitions": [
+      {
+        "name": "simple-app",
+        "image": "yourusername/simple-app:latest",
+        "memory": 512,
+        "cpu": 256,
+        "essential": true,
+        "portMappings": [
+          {
+            "containerPort": 5002,
+            "hostPort": 5002
+          }
+        ]
+      }
+    ]
+  }
+  
