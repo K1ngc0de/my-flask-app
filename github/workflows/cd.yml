@@ -12,23 +12,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Шаг 2: Логин в DockerHub
-      - name: Log in to DockerHub
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+      # Шаг 2: Логин в Vercel
+      - name: Vercel login
+        run: |
+          echo ${{ secrets.VERCEL_TOKEN }} | vercel login --token
 
-      # Шаг 3: Сборка Docker-образа
-      - name: Build Docker image
-        run: docker build -t yourusername/simple-app:latest .
-
-      # Шаг 4: Загрузка Docker-образа в DockerHub
-      - name: Push Docker image
-        run: docker push yourusername/simple-app:latest
-
-      # Шаг 5: Развертывание на AWS ECS
-      - name: Deploy to AWS ECS
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-        with:
-          cluster: your-cluster-name                  # Имя ECS-кластера
-          service: your-service-name                 # Имя ECS-сервиса
-          task-definition: your-task-definition.json # JSON-файл с описанием задачи
-          wait-for-service-stability: true           # Ожидание стабильного состояния
+      # Шаг 3: Развертывание на Vercel
+      - name: Deploy to Vercel
+        run: |
+          vercel --prod --confirm
