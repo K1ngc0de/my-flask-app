@@ -1,4 +1,5 @@
-name: CD Pipeline
+name: Continuous Deployment
+
 on:
   push:
     branches:
@@ -7,17 +8,16 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-      # Шаг 1: Клонирование репозитория
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      # Шаг 2: Логин в Vercel
-      - name: Vercel login
-        run: |
-          echo ${{ secrets.VERCEL_TOKEN }} | vercel login --token
+    - name: Set up SSH for deployment
+      uses: webfactory/ssh-agent@v0.5.3
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      # Шаг 3: Развертывание на Vercel
-      - name: Deploy to Vercel
-        run: |
-          vercel --prod --confirm
+    - name: Deploy to server
+      run: |
+        ssh -o StrictHostKeyChecking=no user@your-server "cd /path/to/project && git pull && npm install && pm2 restart app"
