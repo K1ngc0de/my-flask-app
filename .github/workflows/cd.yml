@@ -3,7 +3,7 @@ name: Deploy to Vercel
 on:
   push:
     branches:
-      - main  # Запускаем деплой на пуш в ветку main
+      - main  # LAUNCH деплой на пуш в ветку main
 
 jobs:
   deploy:
